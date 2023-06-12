@@ -1,0 +1,43 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div id="word-data" class="container">
+        <div class="content-box">
+            <div class="left"></div>
+            <div class="right">
+                <h2>Word details</h2>
+                <div class="form-group">
+                    <label for="wordId">Insert Word</label>
+                    <input type="text" class="form-control" placeholder="Word" id="wordId" name="word"
+                        formControlName="word">
+                </div>
+
+                <div class="form-group">
+                    <label for="wordId">Insert Translation</label>
+                    <input type="text" class="form-control" placeholder="Translation" id="translationId"
+                        name="translation" formControlName="translation">
+                </div>
+
+                <div class="form-group">
+                    <label for="wordId">Insert Sentence</label>
+                    <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"
+                        formControlName="sentence"></textarea>
+                </div>
+
+              <div class="form-group">
+                <label for="wordId">Insert Category</label>
+                <input type="text" class="form-control" placeholder="Category" id="categoryId"
+                       name="category" formControlName="category">
+              </div>
+
+                <div class="form-group">
+                    <input type="file" id="file">
+                </div>
+                <br>
+
+
+                <button class="my-submit-button" type="submit">Add your word</button>
+            </div>
+        </div>
+
+
+    </div>
+</form>

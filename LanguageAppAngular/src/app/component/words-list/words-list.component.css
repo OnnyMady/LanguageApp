@@ -1,0 +1,60 @@
+.bi-search{
+  color: #e9891c;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+label {
+
+  color: #e9891c;
+  font-weight: 500;
+  font-size: 20px;
+}
+
+/*.box{*/
+/*  height: 100vh;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+
+/*}*/
+
+.box{
+  height: 40px;
+  width: 300px;
+  display: flex;
+  cursor: pointer;
+  padding: 10px 20px;
+  background: white;
+  border-radius: 50px;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/*.box:hover {*/
+/*    width: 300px;*/
+
+/*}*/
+
+/*.box:hover input {*/
+/*  width: 300px;*/
+
+/*}*/
+
+.box input{
+  width: 300px;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  transition: 0.5s;
+  background: transparent;
+  color: #e9891c;
+}
+
+
+li {
+  list-style-type: none;
+  display: inline-block;
+  padding-right: 10px;
+  padding-left: 10px;
+}
