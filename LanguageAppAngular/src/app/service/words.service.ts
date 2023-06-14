@@ -15,7 +15,7 @@ export class WordsService{
   constructor(private http: HttpClient) {
   }
 
-  deleteWord(idWord: string){
+  deleteWord(idWord: number){
     return this.http
       .delete<void>(`${this.apiServerUrl}/words/delete/${idWord}`)
       .subscribe(() => {

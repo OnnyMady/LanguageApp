@@ -1,0 +1,59 @@
+.flex-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.message {
+  font-size: 22px;
+  font-family: sans-serif;
+  align-self: center;
+  font-weight: bold;
+}
+
+.div-message{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.div-buttons{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  gap: 30px;
+
+}
+
+.button{
+
+  display: inline-block;
+  margin-top: 40px;
+  outline: 0;
+  border:0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  color: #000;
+  background: #fff;
+  line-height: 30px;
+  border-radius: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  box-shadow: rgba(130, 125, 125, 0.55) -2px -2px 0px 2px, rgb(227, 113, 22) 0px 0px 0px 4px, rgba(245, 244, 244, 0.96) 0px 0px 2px 7px;
+  transition: all 0.2s;
+
+
+}
+
+.button:hover{
+  box-shadow: rgba(139, 137, 137, 0.42) -2px -2px 0px 2px, rgb(251, 5, 5) 0px 0px 0px 4px, rgba(0, 0, 0, 0.55) 0px 0px 2px 7px;
+  transform: scale(1.01);
+}
+
+
+
+

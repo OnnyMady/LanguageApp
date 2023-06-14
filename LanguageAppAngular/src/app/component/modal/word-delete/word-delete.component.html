@@ -1,1 +1,15 @@
-<p>word-delete works!</p>
+<div class="flex-container">
+<div class="div-image">
+  <img src="../assets/images/question-squirrel.png" width="180" height="180">
+</div>
+<div class="div-message">
+   <p class="message">Are you sure you want to delete the word <span class="word">{{data.name}}</span> ?</p>
+  <div class="div-buttons">
+    <button id="confirmDelete" class="button" (click)="onYesClick(data.id)">Yes</button>
+    <button id="cancelDelete" class="button" (click)="onNoClick()">No</button>
+  </div>
+</div>
+</div>
+
+
+

@@ -1,1 +1,56 @@
-<p>word-edit works!</p>
+<div class="flex-container">
+
+  <div class="div-message">
+    <p class="message">What would you like to edit ? <span class="word">{{data.name}}</span> </p>
+    <img src="../assets/images/bear1.png" width="200" height="150">
+  </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div id="word-data" class="container">
+      <div class="content-box">
+        <div class="left"></div>
+        <div class="right">
+          <div class="form-group">
+            <label for="wordId">Word</label>
+            <input type="text" class="form-control" placeholder="Word" id="wordId" name="word"
+                   formControlName="word" [(ngModel)]="data.word.name">
+          </div>
+
+          <br>
+          <div class="form-group">
+            <label for="wordId">Translation</label>
+            <input type="text" class="form-control" placeholder="Translation" id="translationId"
+                   name="translation" formControlName="translation" [(ngModel)]="data.word.translation">
+          </div>
+
+          <br>
+          <div class="form-group">
+            <label for="wordId">Sentence</label>
+            <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"
+                      formControlName="sentence" [(ngModel)]="data.word.sentance"></textarea>
+          </div>
+
+          <br>
+          <div class="form-group">
+            <label for="wordId">Category</label>
+            <input type="text" class="form-control" placeholder="Category" id="categoryId"
+                   name="category" formControlName="category" [(ngModel)]="data.word.category">
+          </div>
+
+          <br>
+          <div class="form-group">
+            <input type="file" id="file">
+          </div>
+          <br>
+
+          <div class="div-buttons">
+          <button  type="submit" class="button" (click)="onYesClick(data.word)">Save</button>
+          <button  class="button" (click)="onNoClick()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+</div>

@@ -44,11 +44,13 @@
         <td>{{word.lesson}}</td>
         <td>{{word.category}}</td>
     <td>
-      <div>
-        <button type="button" class="btn btn-secondary btn-sm mr-2" (click)="onEdit()">Edit <i class="bi bi-pencil-fill"></i></button>
-        <button type="button" class="btn btn-danger btn-sm" (click)="onDelete()" >Delete <i class="bi bi-trash3"></i></button>
+      <div class="button-div">
+        <span style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2" (click)="onEdit(word)">Edit <i class="bi bi-pencil-fill"></i></button></span>
+        <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(word.id, word.name)" >Delete <i class="bi bi-trash3"></i></button>
       </div></td>
   </tr>
   </tbody>
 </table>
+
+
 

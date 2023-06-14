@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Word} from "../../models/word.model";
 import {WordsService} from "../../service/words.service";
 import {HttpErrorResponse} from "@angular/common/http";
+import {ModalService} from "../../service/modal.service";
 
 
 @Component({
@@ -14,17 +15,17 @@ export class WordsListComponent implements OnInit {
   searchTextName: string;
   searchTextCategory: string;
 
-  constructor(private wordsService: WordsService) {
+  constructor(private wordsService: WordsService, private modalService: ModalService) {
   }
 
   listOfWords: Word[] ;
 
-    onEdit(){
-      this.wordsService.editWord(new Word());
+    onEdit(word: Word){
+      this.modalService.onEditDialog(word);
     }
 
-    onDelete(){
-        this.wordsService.deleteWord('sas');
+    onDelete(wordId: number, wordName: string){
+        this.modalService.onDeleteDialog(wordId, wordName);
     }
 
     ngOnInit() {

@@ -5,19 +5,10 @@
 }
 
 label {
-
   color: #e9891c;
   font-weight: 500;
   font-size: 20px;
 }
-
-/*.box{*/
-/*  height: 100vh;*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  align-items: center;*/
-
-/*}*/
 
 .box{
   height: 40px;
@@ -31,16 +22,6 @@ label {
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
-/*.box:hover {*/
-/*    width: 300px;*/
-
-/*}*/
-
-/*.box:hover input {*/
-/*  width: 300px;*/
-
-/*}*/
-
 .box input{
   width: 300px;
   outline: none;
@@ -51,10 +32,18 @@ label {
   color: #e9891c;
 }
 
-
 li {
   list-style-type: none;
   display: inline-block;
   padding-right: 10px;
   padding-left: 10px;
 }
+
+.flex-container{
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*flex-direction: row;*/
+  padding-left: 100px;
+}
+
+

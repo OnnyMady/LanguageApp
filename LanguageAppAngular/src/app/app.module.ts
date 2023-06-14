@@ -9,12 +9,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRountigModule } from '../app/app-routing.module';
 import { HomeComponent } from './component/home/home.component';
 import { WordsListComponent } from './component/words-list/words-list.component'
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+// import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {SearchWordPipe} from "./pipes/searchWord.pipe";
 import {HttpClientModule} from "@angular/common/http";
 import { WordEditComponent } from './component/modal/word-edit/word-edit.component';
 import { WordDeleteComponent } from './component/modal/word-delete/word-delete.component';
-import { WordAddComponent } from './component/modal/word-add/word-add.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -27,18 +28,21 @@ import { WordAddComponent } from './component/modal/word-add/word-add.component'
     SearchWordPipe,
     WordEditComponent,
     WordDeleteComponent,
-    WordAddComponent,
+
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     AppRountigModule,
-    NgbModule,
-    HttpClientModule
+    // NgbModule,
+    HttpClientModule,
+    MatDialogModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [WordDeleteComponent]
 })
 export class AppModule { }
