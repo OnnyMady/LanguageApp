@@ -1,8 +1,7 @@
 package proj.LanguageApp.DTO;
 
 import proj.LanguageApp.Entity.Word;
-
-import java.util.SplittableRandom;
+import java.io.File;
 
 public class WordDTO {
 
@@ -12,22 +11,44 @@ public class WordDTO {
 
     private String category;
 
-    private String sentance;
+    private String sentence;
 
     private String translation;
 
-    private String sound;
+    private String soundName;
+
+    private String pictureName;
+    private byte[] fileBytes;
 
     private String lesson;
+
+    private File file;
+
+    private byte[] pictureBytes;
 
     public WordDTO (Word word){
         this.id = word.getId();
         this.category = word.getCategory();
         this.name = word.getName();
         this.translation = word.getTranslation();
-        this.sentance = word.getSentance();
-        this.sound = word.getSound();
+        this.sentence = word.getSentence();
+        this.soundName = word.getSoundName();
+        this.pictureName = word.getPictureName();
         this.lesson = word.getLesson();
+        this.fileBytes = word.getFileBytes();
+        this.pictureBytes = word.getPictureBytes();
+    }
+
+    public WordDTO (String name,String category, String sentence, String translation,String lesson){
+        this.category = category;
+        this.name = name;
+        this.translation = translation;
+        this.sentence = sentence;
+        this.lesson = lesson;
+    }
+
+    public WordDTO (){
+
     }
 
     public Word toEntity () {
@@ -36,9 +57,12 @@ public class WordDTO {
         entity.setName(this.getName());
         entity.setCategory(this.getCategory());
         entity.setTranslation(this.getTranslation());
-        entity.setSound(this.getSound());
-        entity.setSentance(this.getSentance());
+        entity.setSoundName(this.getSoundName());
+        entity.setSentence(this.getSentence());
         entity.setLesson(this.getLesson());
+        entity.setPictureName(this.pictureName);
+        entity.setFileBytes(this.fileBytes);
+        entity.setPictureBytes(this.pictureBytes);
         return entity;
     }
 
@@ -66,12 +90,12 @@ public class WordDTO {
         this.category = category;
     }
 
-    public String getSentance() {
-        return sentance;
+    public String getSentence() {
+        return sentence;
     }
 
-    public void setSentance(String sentance) {
-        this.sentance = sentance;
+    public void setSentence(String sentence) {
+        this.sentence = sentence;
     }
 
     public String getTranslation() {
@@ -82,12 +106,12 @@ public class WordDTO {
         this.translation = translation;
     }
 
-    public String getSound() {
-        return sound;
+    public String getSoundName() {
+        return soundName;
     }
 
-    public void setSound(String sound) {
-        this.sound = sound;
+    public void setSoundName(String soundName) {
+        this.soundName = soundName;
     }
 
     public String getLesson() {
@@ -96,5 +120,37 @@ public class WordDTO {
 
     public void setLesson(String lesson) {
         this.lesson = lesson;
+    }
+
+    public byte[] getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public byte[] getPictureBytes() {
+        return pictureBytes;
+    }
+
+    public void setPictureBytes(byte[] pictureBytes) {
+        this.pictureBytes = pictureBytes;
+    }
+
+    public String getPictureName() {
+        return pictureName;
+    }
+
+    public void setPictureName(String pictureName) {
+        this.pictureName = pictureName;
     }
 }
