@@ -10,11 +10,11 @@
   </li>
 
   <li>
-  <label for="category" >Category: </label>
-  <div class="box">
-    <input type="text" [(ngModel)]="searchTextCategory" placeholder="Search" id="category">
-    <i class="bi bi-search"></i>
-  </div>
+    <label for="category">Category: </label>
+    <div class="box">
+      <input type="text" [(ngModel)]="searchTextCategory" placeholder="Search" id="category">
+      <i class="bi bi-search"></i>
+    </div>
   </li>
 </div>
 <br>
@@ -23,32 +23,37 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <th scope="col">#</th>
-    <th scope="col">Name</th>
-    <th scope="col">Translation</th>
-    <th scope="col">Sentence</th>
-        <th scope="col">Lesson</th>
-        <th scope="col">Category</th>
-    <th scope="col">Sound</th>
-    <th scope="col">Buttons</th>
+    <th scope="col" class="title">#</th>
+    <th scope="col" class="title">Name</th>
+    <th scope="col" class="title">Category</th>
+    <th scope="col" class="title">Sound</th>
+    <th scope="col" class="title">Buttons</th>
   </tr>
   </thead>
   <tbody *ngFor="let word of listOfWords | searchWordPipe: searchTextName : searchTextCategory ; let i = index ">
   <tr>
-    <th scope="row">{{i + 1}}</th>
-    <td>
-     <div class="hoverImage"> {{word.name  != 'null'  ?  word.name : ''}} </div>
-     <div class="image"> <img  *ngIf="word.pictureName != null" src="assets/picture/{{word.pictureName}}" height="200" width="200"> </div> </td>
-    <td > {{word.translation != 'null'  ?  word.translation : ''}} </td>
-    <td>{{word.sentence != 'null'  ?  word.sentence : ''}}</td>
-        <td>{{word.lesson != 'null'  ?  word.lesson : ''}}</td>
-        <td>{{word.category != 'null'  ?  word.category : ''}}</td>
-    <td> <i class="bi bi-volume-up-fill h5" (click)="playSound(word.soundName)"></i></td>
-    <td>
+    <th scope="row" class="title">{{i + 1}}</th>
+    <td class="item">
+      <div class="container-name-image">
+      <div class="text"  >{{word.name != 'null' ? word.name : ''}} </div>
+      <div class="overlay" id="overlayId"><img class="image" *ngIf="word.pictureName != null" src="assets/picture/{{word.pictureName}}" height="200"
+                              width="250"></div>
+      </div>
+    </td>
+    <td class="item">{{word.category != 'null' ? word.category : ''}}</td>
+    <td class="item"><i *ngIf="word.soundName != null" class="bi bi-volume-up-fill icons-sound"
+                        (click)="playSound(word.soundName)"></i></td>
+    <td class="item">
       <div class="button-div">
-        <span style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2" (click)="onEdit(word)">Edit <i class="bi bi-pencil-fill"></i></button></span>
-        <button type="button" class="btn btn-danger btn-sm" (click)="onDelete(word.id, word.name)" >Delete <i class="bi bi-trash3"></i></button>
-      </div></td>
+        <span style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2"
+                                                  (click)="onEdit(word)">Edit <i class="bi bi-pencil-fill"></i></button></span>
+        <span style="margin-right: 10px"> <button type="button" class="btn btn-danger btn-sm"
+                                                  (click)="onDelete(word.id, word.name)">Delete <i
+          class="bi bi-trash3"></i></button> </span>
+        <span style="margin-right: 10px"><button type="button" class="btn btn-info btn-sm">View <i class="bi bi-eye"></i></button> </span>
+        <span style="margin-right: 10px"><button type="button" class="btn btn-warning btn-sm">Add Meaning <i class="bi bi-plus-lg"></i></button> </span>
+      </div>
+    </td>
   </tr>
   </tbody>
 </table>

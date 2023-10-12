@@ -1,11 +1,11 @@
 <div class="flex-container">
 
   <div class="div-message">
-    <p class="message">What would you like to edit ? <span class="word">{{data.name}}</span> </p>
+    <p class="message">What would you like to edit ? <span class="word">{{data.name}}</span></p>
     <img src="../assets/images/bear1.png" width="200" height="150">
   </div>
 
-  <form [formGroup]="myForm" >
+  <form [formGroup]="myForm">
     <div id="word-data" class="container">
       <div class="content-box">
         <div class="left"></div>
@@ -16,19 +16,19 @@
                    formControlName="word" [(ngModel)]="data.word.name">
           </div>
 
-          <br>
-          <div class="form-group">
-            <label for="wordId">Translation</label>
-            <input type="text" class="form-control" placeholder="Translation" id="translationId"
-                   name="translation" formControlName="translation" [(ngModel)]="data.word.translation">
-          </div>
+<!--          <br>-->
+<!--          <div class="form-group">-->
+<!--            <label for="wordId">Translation</label>-->
+<!--            <input type="text" class="form-control" placeholder="Translation" id="translationId"-->
+<!--                   name="translation" formControlName="translation" [(ngModel)]="data.word.translation">-->
+<!--          </div>-->
 
-          <br>
-          <div class="form-group">
-            <label for="wordId">Sentence</label>
-            <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"
-                      formControlName="sentence" [(ngModel)]="data.word.sentance"></textarea>
-          </div>
+<!--          <br>-->
+<!--          <div class="form-group">-->
+<!--            <label for="wordId">Sentence</label>-->
+<!--            <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"-->
+<!--                      formControlName="sentence" [(ngModel)]="data.word.sentance"></textarea>-->
+<!--          </div>-->
 
           <br>
           <div class="form-group">
@@ -38,14 +38,21 @@
           </div>
 
           <br>
+          <label for="wordId">Sound</label>
           <div class="form-group">
-            <input type="file" id="myFile" class="form-control" name="file"  (change)="onFileChange($event)">
+            <input type="file" id="myFileSound" class="form-control" name="file" (change)="onFileChangeSound($event)">
+          </div>
+
+          <br>
+          <label for="wordId">Picture</label>
+          <div class="form-group">
+            <input type="file" id="myFilePicture" class="form-control" name="file" (change)="onFileChangePicture($event)">
           </div>
           <br>
 
           <div class="div-buttons">
-          <button  type="submit" class="button" (click)="onYesClick(data.word)">Save</button>
-          <button  class="button" (click)="onNoClick()">Cancel</button>
+            <button type="submit" class="button" (click)="onYesClick(data.word)">Save</button>
+            <button class="button" (click)="onNoClick()">Cancel</button>
           </div>
         </div>
       </div>

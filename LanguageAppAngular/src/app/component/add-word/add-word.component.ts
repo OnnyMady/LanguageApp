@@ -18,9 +18,6 @@ export class AddWordComponent implements OnInit {
   ngOnInit(): void {
     this.myForm = new FormGroup({
       'name': new FormControl(null),
-      'translation': new FormControl(null),
-      'lesson': new FormControl(null),
-      'sentence': new FormControl(null),
       'category': new FormControl(null),
       'fileSound': new FormControl(null),
       'filePicture': new FormControl(null)

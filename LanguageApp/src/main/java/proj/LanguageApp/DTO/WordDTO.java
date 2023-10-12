@@ -39,12 +39,9 @@ public class WordDTO {
         this.pictureBytes = word.getPictureBytes();
     }
 
-    public WordDTO (String name,String category, String sentence, String translation,String lesson){
+    public WordDTO (String name,String category){
         this.category = category;
         this.name = name;
-        this.translation = translation;
-        this.sentence = sentence;
-        this.lesson = lesson;
     }
 
     public WordDTO (){

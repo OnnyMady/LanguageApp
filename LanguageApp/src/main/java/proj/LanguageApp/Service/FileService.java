@@ -21,7 +21,8 @@ public class FileService {
 
     public void deleteFile(String fileName) throws Exception {
 
-        Path fileStorageLocation = Paths.get((env.getProperty("file.upload-dir"))).toAbsolutePath().normalize();
+        Path fileStorageLocation = getPath(fileName);
+
         Path targetLocation = fileStorageLocation.resolve(fileName);
         Files.delete(targetLocation);
 
@@ -29,15 +30,9 @@ public class FileService {
 
     public void uploadFile(MultipartFile file, String fileName) throws Exception {
 
-            Path fileStorageLocation;
+        Path fileStorageLocation = getPath(fileName);
 
-            if(fileName.contains(".mp3") || fileName.contains(".wav")){
-                fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-sound"))).toAbsolutePath().normalize();
-            } else {
-                fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-picture"))).toAbsolutePath().normalize();
-            }
-
-            Path targetLocation = fileStorageLocation.resolve(fileName);
+        Path targetLocation = fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation,
                     StandardCopyOption.REPLACE_EXISTING);
 
@@ -45,13 +40,7 @@ public class FileService {
 
     public Resource loadFileAsResource(String fileName) throws MalformedURLException {
 
-        Path fileStorageLocation;
-
-        if(fileName.contains(".mp3") || fileName.contains(".wav")){
-            fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-sound"))).toAbsolutePath().normalize();
-        } else {
-            fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-picture"))).toAbsolutePath().normalize();
-        }
+        Path fileStorageLocation = getPath(fileName);
 
         Path filePath = fileStorageLocation.resolve(fileName).normalize();
         Resource resource = new UrlResource(filePath.toUri());
@@ -65,5 +54,16 @@ public class FileService {
         int index = name.indexOf('.');
         return name.substring(index);
 
+    }
+
+    private Path getPath(String fileName) {
+        Path fileStorageLocation;
+
+        if(fileName.contains(".mp3") || fileName.contains(".wav")){
+            fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-sound"))).toAbsolutePath().normalize();
+        } else {
+            fileStorageLocation = Paths.get((env.getProperty("file.upload-dir-picture"))).toAbsolutePath().normalize();
+        }
+        return fileStorageLocation;
     }
 }

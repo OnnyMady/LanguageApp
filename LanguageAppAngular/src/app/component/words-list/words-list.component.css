@@ -49,10 +49,69 @@ li {
   cursor: pointer;
 }
 
-.image{
-  display: none;
+.textToHover{
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.hoverImage:hover + .image {
-  display: block;
+.title {
+  font-size: 20px;
+  color: #e9891c;
+  text-align: center;
 }
+
+.item{
+  font-weight: bold;
+  text-align: center;
+  width: 500px;
+  font-size: 18px;
+}
+
+.icons-sound{
+  font-size: 30px;
+}
+
+.container-name-image {
+  position: relative;
+}
+
+.text {
+  display: block;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.overlay {
+  position: absolute;
+  top: 20px;
+  bottom: 0px;
+  left: 400px;
+  right: 0px;
+  height: 100%;
+  width: 10%;
+  opacity: 0;
+  transition: .5s ease;
+  z-index: -1;
+  border-radius: 28px;
+}
+
+.text:hover + #overlayId {
+  opacity: 1;
+  z-index: 1;
+
+}
+
+.image {
+  font-size: 30px;
+  position: absolute;
+  right: 0px;
+  left: 90%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 35px;
+}
+

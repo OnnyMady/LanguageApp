@@ -34,25 +34,27 @@ public class WordService {
         return new WordDTO(wordRepository.save(wordDTO.toEntity()));
     }
 
-    public WordDTO updateFileName (WordDTO wordDTO, String extension) throws Exception{
-        WordDTO editWord = new WordDTO(wordRepository.findById(wordDTO.getId()).get());
-        editWord.setSoundName( wordDTO.getId() +extension );
+    public WordDTO updateFileSoundName (Integer id, String extension) throws Exception{
+        WordDTO editWord = new WordDTO(wordRepository.findById(id).get());
+        editWord.setSoundName( id + extension );
         return new WordDTO(wordRepository.save(editWord.toEntity()));
     }
 
-    public WordDTO updateFilePictureName(WordDTO wordDTO, String extension) throws Exception{
-        WordDTO editWord = new WordDTO(wordRepository.findById(wordDTO.getId()).get());
-        editWord.setPictureName( wordDTO.getId() +extension );
+    public WordDTO updateFilePictureName(Integer id, String extension) throws Exception{
+        WordDTO editWord = new WordDTO(wordRepository.findById(id).get());
+        editWord.setPictureName( id + extension );
         return new WordDTO(wordRepository.save(editWord.toEntity()));
     }
 
-    public WordDTO editWord(WordDTO wordDTO, String extension, String id) throws Exception{
-        WordDTO editWord = new WordDTO(wordRepository.findById(wordDTO.getId()).get());
-        editWord.setName(wordDTO.getName());
-        editWord.setCategory(wordDTO.getCategory());
-        editWord.setSentence(wordDTO.getSentence());
-        editWord.setSoundName(id + extension);
-        editWord.setTranslation(wordDTO.getTranslation());
-        return new WordDTO(wordRepository.save(editWord.toEntity()));
+    public WordDTO findWord(String id) throws Exception{
+         return new WordDTO(wordRepository.findById(Integer.parseInt(id)).get());
+    }
+
+    public WordDTO editWord(WordDTO wordDTO, String category, String name) throws Exception{
+        wordDTO.setName(name);
+        wordDTO.setCategory(category);
+        wordRepository.save(wordDTO.toEntity());
+
+        return wordDTO;
     }
 }

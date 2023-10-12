@@ -9,13 +9,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppRountigModule } from '../app/app-routing.module';
 import { HomeComponent } from './component/home/home.component';
 import { WordsListComponent } from './component/words-list/words-list.component'
-// import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {SearchWordPipe} from "./pipes/searchWord.pipe";
 import {HttpClientModule} from "@angular/common/http";
 import { WordEditComponent } from './component/modal/word-edit/word-edit.component';
 import { WordDeleteComponent } from './component/modal/word-delete/word-delete.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WordViewComponent } from './component/modal/word-view/word-view.component';
 
 
 @NgModule({
@@ -28,6 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SearchWordPipe,
     WordEditComponent,
     WordDeleteComponent,
+    WordViewComponent,
 
   ],
   imports: [
@@ -35,7 +36,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     FormsModule,
     AppRountigModule,
-    // NgbModule,
     HttpClientModule,
     MatDialogModule,
     BrowserAnimationsModule

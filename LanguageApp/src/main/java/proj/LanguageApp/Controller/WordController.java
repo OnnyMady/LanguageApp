@@ -1,7 +1,6 @@
 package proj.LanguageApp.Controller;
 
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +34,11 @@ public class WordController {
     private FileService fileService;
 
     @GetMapping("all")
-    public ResponseEntity<List<WordDTO>> getAllWords(){
+    public ResponseEntity<List<WordDTO>> getAllWords() {
         List<WordDTO> wordList = new ArrayList<>();
-        try{
-            wordList= wordService.getWords();
-        } catch (Exception e){
+        try {
+            wordList = wordService.getWords();
+        } catch (Exception e) {
             System.out.println(e);
         }
         return new ResponseEntity<>(wordList, HttpStatus.OK);
@@ -47,11 +46,11 @@ public class WordController {
 
     @DeleteMapping("delete/{id}")
     @Transactional
-    public ResponseEntity<?> deleteWord(@PathVariable("id") Long id){
-        try{
+    public ResponseEntity<?> deleteWord(@PathVariable("id") Long id) {
+        try {
             wordService.deleteWord(id);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Something went wrong.");
             System.out.println(e);
         }
@@ -62,24 +61,40 @@ public class WordController {
     public ResponseEntity<WordDTO> editWord(@RequestPart("word") String name,
                                             @RequestPart("id") String id,
                                             @RequestPart("category") String category,
-                                            @RequestPart("sentence") String sentence,
-                                            @RequestPart( "lesson" ) String lesson,
-                                            @RequestPart("translation") String translation,
                                             @RequestPart(value = "fileSound", required = false) MultipartFile[] fileSound,
-                                            @RequestPart(value = "filePicture", required = false) MultipartFile[] filePicture)
-    {
+                                            @RequestPart(value = "filePicture", required = false) MultipartFile[] filePicture) {
         WordDTO response = null;
+
         try {
-            String extensionFileSound = fileService.getExtension(fileSound[0].getOriginalFilename());
 
-            WordDTO wordDTO = new WordDTO(name, category, sentence, translation,lesson);
-            fileService.deleteFile(wordDTO.getId() + extensionFileSound);
+            WordDTO word = wordService.findWord(id);
+            response = wordService.editWord(word, category, name);
 
-            String fileName = StringUtils.cleanPath(fileSound[0].getOriginalFilename());
-            fileService.uploadFile(fileSound[0], fileName);
-            fileService.loadFileAsResource(fileName);
+            if (fileSound != null) {
+                String extensionFileSound = fileService.getExtension(fileSound[0].getOriginalFilename());
+                String fileName = id + extensionFileSound;
 
-            response= wordService.editWord(wordDTO, extensionFileSound, id);
+                if (word.getSoundName() != null) {
+                    fileService.deleteFile(word.getSoundName());
+                }
+                fileService.uploadFile(fileSound[0], fileName);
+                fileService.loadFileAsResource(fileName);
+                response = wordService.updateFileSoundName(response.getId(), extensionFileSound);
+            }
+
+            if (filePicture != null) {
+                String extensionFilePicture = fileService.getExtension(filePicture[0].getOriginalFilename());
+                String fileName = id + extensionFilePicture;
+
+                if (word.getPictureName() != null) {
+                    fileService.deleteFile(word.getPictureName());
+                }
+                fileService.uploadFile(filePicture[0], fileName);
+                fileService.loadFileAsResource(fileName);
+                response = wordService.updateFilePictureName(response.getId(), extensionFilePicture);
+
+            }
+
 
         } catch (Exception e) {
             System.out.println("Something went wrong.");
@@ -92,30 +107,29 @@ public class WordController {
     @PostMapping(value = "add")
     public ResponseEntity<WordDTO> addWord(@RequestPart("name") String name,
                                            @RequestPart("category") String category,
-                                           @RequestPart("sentence") String sentence,
-                                           @RequestPart("lesson") String lesson,
-                                           @RequestPart("translation") String translation,
                                            @RequestPart(value = "fileSound", required = false) MultipartFile[] fileSound,
                                            @RequestPart(value = "filePicture", required = false) MultipartFile[] filePicture) {
 
         WordDTO response = null;
 
         try {
-            String extensionFileSound = fileService.getExtension(fileSound[0].getOriginalFilename());
-            String extensionFilePicture = fileService.getExtension(filePicture[0].getOriginalFilename());
-
-            WordDTO wordDTO = new WordDTO(name, category, sentence, translation, lesson);
+            WordDTO wordDTO = new WordDTO(name, category);
             response = wordService.addWord(wordDTO);
-            response = wordService.updateFileName(response, extensionFileSound);
-            response = wordService.updateFilePictureName(response, extensionFilePicture);
 
-            String fileName = response.getId() + extensionFileSound;
-            String pictureName = response.getId() + extensionFilePicture;
-
-            fileService.uploadFile(fileSound[0], fileName);
-            fileService.loadFileAsResource(fileName);
-            fileService.uploadFile(filePicture[0], pictureName);
-            fileService.loadFileAsResource(pictureName);
+            if (fileSound != null) {
+                String extensionFileSound = fileService.getExtension(fileSound[0].getOriginalFilename());
+                response = wordService.updateFileSoundName(response.getId(), extensionFileSound);
+                String fileName = response.getId() + extensionFileSound;
+                fileService.uploadFile(fileSound[0], fileName);
+                fileService.loadFileAsResource(fileName);
+            }
+            if (filePicture != null) {
+                String extensionFilePicture = fileService.getExtension(filePicture[0].getOriginalFilename());
+                response = wordService.updateFilePictureName(response.getId(), extensionFilePicture);
+                String pictureName = response.getId() + extensionFilePicture;
+                fileService.uploadFile(filePicture[0], pictureName);
+                fileService.loadFileAsResource(pictureName);
+            }
 
         } catch (Exception e) {
             System.out.println("Something went wrong.");

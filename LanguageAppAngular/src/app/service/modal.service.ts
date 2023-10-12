@@ -18,8 +18,8 @@ export class ModalService{
     const dialogConfig = new MatDialogConfig();
     let refresh = false;
 
-    dialogConfig.width = "550px";
-    dialogConfig.height = "200px";
+    dialogConfig.width = "700px";
+    dialogConfig.height = "220px";
     dialogConfig.hasBackdrop = true;
     dialogConfig.panelClass = 'word-delete-modal';
     dialogConfig.data = { name: wordName, id: wordId };
@@ -27,7 +27,6 @@ export class ModalService{
 
     const dialogRef = this.dialog.open(WordDeleteComponent, dialogConfig).afterClosed().subscribe(
       (result) => { if(result.event == 'Delete') refresh = true;}
-
     );
 
     return refresh;
@@ -39,7 +38,7 @@ export class ModalService{
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.width = "700px";
-    dialogConfig.height = "650px";
+    dialogConfig.height = "550px";
     dialogConfig.hasBackdrop = true;
     dialogConfig.panelClass = 'word-edit-modal';
     dialogConfig.data = { word: word };

@@ -15,6 +15,7 @@ export class WordsListComponent implements OnInit {
 
   searchTextName: string;
   searchTextCategory: string;
+  showImage: boolean = false;
 
   constructor(private wordsService: WordsService, private modalService: ModalService,
               private audioPlayerService: AudioPlayerService) {
@@ -23,35 +24,35 @@ export class WordsListComponent implements OnInit {
   listOfWords: Word[];
   refresh = false;
 
-    onEdit(word: Word){
-      this.modalService.onEditDialog(word);
-    }
-
-    onDelete(wordId: number, wordName: string){
-        this.refresh = this.modalService.onDeleteDialog(wordId, wordName);
-        if(this.refresh){
-          this.wordsService.getWords().subscribe( ( response: Word[]) => {
-            this.listOfWords = response;
-          },
-            (error: HttpErrorResponse) => {
-              alert(error.message);
-            });
-        }
-    }
-
-  playSound(name: string) {
-      let audio = new Audio();
-      audio.src = '../../assets/sounds/' + name;
-      audio.load();
-      audio.play();
+  onEdit(word: Word) {
+    this.modalService.onEditDialog(word);
   }
 
-    ngOnInit() {
-     this.wordsService.getWords().subscribe( ( response: Word[]) => {
-       this.listOfWords = response;
-     },
-     (error: HttpErrorResponse) => {
+  onDelete(wordId: number, wordName: string) {
+    this.refresh = this.modalService.onDeleteDialog(wordId, wordName);
+    if (this.refresh) {
+      this.wordsService.getWords().subscribe((response: Word[]) => {
+          this.listOfWords = response;
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        });
+    }
+  }
+
+  playSound(name: string) {
+    let audio = new Audio();
+    audio.src = '../../assets/sounds/' + name;
+    audio.load();
+    audio.play();
+  }
+
+  ngOnInit() {
+    this.wordsService.getWords().subscribe((response: Word[]) => {
+        this.listOfWords = response;
+      },
+      (error: HttpErrorResponse) => {
         alert(error.message);
       });
-    }
+  }
 }
