@@ -12,6 +12,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class WordEditComponent {
 
   myForm: FormGroup;
+  formData: FormData;
 
   constructor(
     public dialogRef: MatDialogRef<WordEditComponent>,
@@ -24,21 +25,32 @@ export class WordEditComponent {
   }
 
   onYesClick(word: Word){
-    this.wordsService.editWord(word);
+    console.log(this.myForm.value)
+    this.formData = this.wordsService.transformFormGroupToFormData(this.myForm);
+    this.wordsService.editWord(this.formData);
+    this.dialogRef.close();
+  }
+
+  onFileChange(event) {
+
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.myForm.patchValue({
+        fileSound: file
+      });
+    }
   }
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
+      'id': new FormControl(this.data.word.id),
       'word': new FormControl(null),
       'translation': new FormControl(null),
       'sentence': new FormControl(null),
-      'category': new FormControl(null)
+      'category': new FormControl(null),
+      'lesson': new FormControl(null),
+      'fileSound': new FormControl(null)
     });
-  }
-
-  onSubmit() {
-    console.log(this.myForm.value)
-    this.wordsService.saveWord();
   }
 
 }

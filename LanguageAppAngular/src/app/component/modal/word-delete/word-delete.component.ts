@@ -1,4 +1,4 @@
-import {Component, Inject} from '@angular/core';
+import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {WordsService} from "../../../service/words.service";
 
@@ -8,6 +8,8 @@ import {WordsService} from "../../../service/words.service";
   styleUrls: ['./word-delete.component.css']
 })
 export class WordDeleteComponent {
+
+  action: string;
 
   constructor(
     public dialogRef: MatDialogRef<WordDeleteComponent>,
@@ -21,6 +23,8 @@ export class WordDeleteComponent {
 
   onYesClick(id: number){
     this.wordsService.deleteWord(id);
+    this.dialogRef.close( {event: 'Delete'});
+    window.location.reload();
   }
 
 }

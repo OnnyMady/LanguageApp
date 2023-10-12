@@ -1,45 +1,59 @@
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<h2>Write your word details</h2>
+<br>
+<div class="container" >
+  <img src="../assets/images/beaver1.png" class="image-class">
+  <form [formGroup]="myForm" enctype="multipart/form-data" (ngSubmit)="onSubmit()">
     <div id="word-data" class="container">
-        <div class="content-box">
-            <div class="left"></div>
-            <div class="right">
-                <h2>Word details</h2>
-                <div class="form-group">
-                    <label for="wordId">Insert Word</label>
-                    <input type="text" class="form-control" placeholder="Word" id="wordId" name="word"
-                        formControlName="word">
-                </div>
+      <div class="content-box">
+        <div class="left"></div>
+        <div class="right">
+          <div class="form-group">
+            <label for="wordId">Insert Word</label>
+            <input type="text" class="form-control" placeholder="Word" id="wordId" name="name"
+                   formControlName="name">
+          </div>
 
-                <div class="form-group">
-                    <label for="wordId">Insert Translation</label>
-                    <input type="text" class="form-control" placeholder="Translation" id="translationId"
-                        name="translation" formControlName="translation">
-                </div>
+          <div class="form-group">
+            <label for="wordId">Insert Translation</label>
+            <input type="text" class="form-control" placeholder="Translation" id="translationId"
+                   name="translation" formControlName="translation">
+          </div>
 
-                <div class="form-group">
-                    <label for="wordId">Insert Sentence</label>
-                    <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"
-                        formControlName="sentence"></textarea>
-                </div>
+          <div class="form-group">
+            <label for="wordId">Insert Sentence</label>
+            <textarea type="text" class="form-control" placeholder="Sentence" id="sentaceId" name="sentance"
+                      formControlName="sentence"></textarea>
+          </div>
 
-              <div class="form-group">
-                <label for="wordId">Insert Category</label>
-                <input type="text" class="form-control" placeholder="Category" id="categoryId"
-                       name="category" formControlName="category">
-              </div>
+          <div class="form-group">
+            <label for="wordId">Insert Category</label>
+            <input type="text" class="form-control" placeholder="Category" id="categoryId"
+                   name="category" formControlName="category">
+          </div>
 
-                <div class="form-group">
-                    <input type="file" id="file">
-                </div>
-                <br>
+          <br>
+          <div class="form-group">
+            <label for="wordId">Insert Sound</label>
+            <input type="file" id="myFile" class="form-control" name="file"  (change)="onFileChange($event)">
+          </div>
+
+          <div class="form-group">
+            <label for="wordId">Insert Picture</label>
+            <input type="file" id="myFilePicture" class="form-control" name="file"  (change)="onFileChangePicture($event)">
+          </div>
+          <br>
 
 
-                <button class="my-submit-button" type="submit">Add your word</button>
-            </div>
+          <button class="my-submit-button" type="submit">Add your word</button>
         </div>
+      </div>
 
 
     </div>
-</form>
+  </form>
+</div>
+
+
+
 
 

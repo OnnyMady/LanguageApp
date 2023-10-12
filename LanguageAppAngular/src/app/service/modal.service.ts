@@ -16,6 +16,7 @@ export class ModalService{
   onDeleteDialog(wordId: number, wordName: string) {
 
     const dialogConfig = new MatDialogConfig();
+    let refresh = false;
 
     dialogConfig.width = "550px";
     dialogConfig.height = "200px";
@@ -24,7 +25,12 @@ export class ModalService{
     dialogConfig.data = { name: wordName, id: wordId };
 
 
-    const dialogRef = this.dialog.open(WordDeleteComponent, dialogConfig);
+    const dialogRef = this.dialog.open(WordDeleteComponent, dialogConfig).afterClosed().subscribe(
+      (result) => { if(result.event == 'Delete') refresh = true;}
+
+    );
+
+    return refresh;
   }
 
   //   ---Edit Modal---

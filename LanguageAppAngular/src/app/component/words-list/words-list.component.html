@@ -26,23 +26,24 @@
     <th scope="col">#</th>
     <th scope="col">Name</th>
     <th scope="col">Translation</th>
-    <th scope="col">Sentance</th>
-    <th scope="col">Sound</th>
+    <th scope="col">Sentence</th>
         <th scope="col">Lesson</th>
         <th scope="col">Category</th>
+    <th scope="col">Sound</th>
     <th scope="col">Buttons</th>
   </tr>
   </thead>
-  <tbody *ngFor="let word of listOfWords | searchWordPipe: searchTextName : searchTextCategory ; ">
+  <tbody *ngFor="let word of listOfWords | searchWordPipe: searchTextName : searchTextCategory ; let i = index ">
   <tr>
-    <th scope="row">1</th>
+    <th scope="row">{{i + 1}}</th>
     <td>
-      {{word.name}} </td>
-    <td>{{word.translation}}</td>
-    <td>{{word.sentance}}</td>
-    <td>{{word.sound}}</td>
-        <td>{{word.lesson}}</td>
-        <td>{{word.category}}</td>
+     <div class="hoverImage"> {{word.name  != 'null'  ?  word.name : ''}} </div>
+     <div class="image"> <img  *ngIf="word.pictureName != null" src="assets/picture/{{word.pictureName}}" height="200" width="200"> </div> </td>
+    <td > {{word.translation != 'null'  ?  word.translation : ''}} </td>
+    <td>{{word.sentence != 'null'  ?  word.sentence : ''}}</td>
+        <td>{{word.lesson != 'null'  ?  word.lesson : ''}}</td>
+        <td>{{word.category != 'null'  ?  word.category : ''}}</td>
+    <td> <i class="bi bi-volume-up-fill h5" (click)="playSound(word.soundName)"></i></td>
     <td>
       <div class="button-div">
         <span style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2" (click)="onEdit(word)">Edit <i class="bi bi-pencil-fill"></i></button></span>

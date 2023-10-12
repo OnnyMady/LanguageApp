@@ -1,40 +1,21 @@
 .container {
-
-    margin: 0px 0px 0px 0px;
-    padding: 0 0 0 0;
+  display: flex;
+  margin-top: 20px;
+  margin-left: 0px;
+  justify-content: center;
+  align-content: center;
 }
 
-
-.content-box {
-    padding-top: 50px;
-    max-width: 850;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    align-items: center;
-    /* text-align: center; */
-
-}
-
-.left {
-    position: relative;
-    height: 500px;
-    width: 400px;
-    background: url(../../../assets/images/tiger3.png) no-repeat center;
-    background-size: cover;
-}
-
-.right {
-    position: relative;
-    padding: 40px 20px;
-    height: 500px;
-    width: 400px;
+.image-class {
+  width: 400px;
 }
 
 h2 {
     font-weight: bold;
+    font-size: 60px;
     position: relative;
     padding-bottom: 10px;
+     margin-top: 40px;
     margin-bottom: 10px;
     text-align: center;
     font-family: "Papyrus";

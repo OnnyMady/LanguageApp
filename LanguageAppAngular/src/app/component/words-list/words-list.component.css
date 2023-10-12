@@ -40,10 +40,19 @@ li {
 }
 
 .flex-container{
-  /*display: flex;*/
-  /*justify-content: center;*/
-  /*flex-direction: row;*/
   padding-left: 100px;
 }
 
+.bi bi-volume-up-fill{
+  margin-left: 15px;
+  height: 40px;
+  cursor: pointer;
+}
 
+.image{
+  display: none;
+}
+
+.hoverImage:hover + .image {
+  display: block;
+}
