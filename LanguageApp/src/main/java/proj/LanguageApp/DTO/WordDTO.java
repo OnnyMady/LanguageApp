@@ -1,42 +1,40 @@
 package proj.LanguageApp.DTO;
 
+import proj.LanguageApp.Entity.Translation;
 import proj.LanguageApp.Entity.Word;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WordDTO {
 
-    private Integer id;
+    private Long id;
 
     private String name;
 
     private String category;
 
-    private String sentence;
-
-    private String translation;
-
     private String soundName;
 
     private String pictureName;
-    private byte[] fileBytes;
 
     private String lesson;
 
-    private File file;
-
-    private byte[] pictureBytes;
+    private List<TranslationDTO> translationDTOList;
 
     public WordDTO (Word word){
         this.id = word.getId();
         this.category = word.getCategory();
         this.name = word.getName();
-        this.translation = word.getTranslation();
-        this.sentence = word.getSentence();
         this.soundName = word.getSoundName();
         this.pictureName = word.getPictureName();
         this.lesson = word.getLesson();
-        this.fileBytes = word.getFileBytes();
-        this.pictureBytes = word.getPictureBytes();
+
+        List<TranslationDTO> myList = new ArrayList<>();
+        for(Translation myTranslation: word.getTranslationList()){
+            myList.add(new TranslationDTO(myTranslation));
+        }
+        this.translationDTOList = myList;
     }
 
     public WordDTO (String name,String category){
@@ -53,21 +51,18 @@ public class WordDTO {
         entity.setId(this.getId());
         entity.setName(this.getName());
         entity.setCategory(this.getCategory());
-        entity.setTranslation(this.getTranslation());
         entity.setSoundName(this.getSoundName());
-        entity.setSentence(this.getSentence());
         entity.setLesson(this.getLesson());
-        entity.setPictureName(this.pictureName);
-        entity.setFileBytes(this.fileBytes);
-        entity.setPictureBytes(this.pictureBytes);
+        entity.setPictureName(this.getPictureName());
+//        entity.setTranslationList(this.getTranslationList());
         return entity;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,22 +82,6 @@ public class WordDTO {
         this.category = category;
     }
 
-    public String getSentence() {
-        return sentence;
-    }
-
-    public void setSentence(String sentence) {
-        this.sentence = sentence;
-    }
-
-    public String getTranslation() {
-        return translation;
-    }
-
-    public void setTranslation(String translation) {
-        this.translation = translation;
-    }
-
     public String getSoundName() {
         return soundName;
     }
@@ -119,35 +98,19 @@ public class WordDTO {
         this.lesson = lesson;
     }
 
-    public byte[] getFileBytes() {
-        return fileBytes;
-    }
-
-    public void setFileBytes(byte[] fileBytes) {
-        this.fileBytes = fileBytes;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    public byte[] getPictureBytes() {
-        return pictureBytes;
-    }
-
-    public void setPictureBytes(byte[] pictureBytes) {
-        this.pictureBytes = pictureBytes;
-    }
-
     public String getPictureName() {
         return pictureName;
     }
 
     public void setPictureName(String pictureName) {
         this.pictureName = pictureName;
+    }
+
+    public List<TranslationDTO> getTranslationDTOList() {
+        return translationDTOList;
+    }
+
+    public void setTranslationDTOList(List<TranslationDTO> translationDTOList) {
+        this.translationDTOList = translationDTOList;
     }
 }

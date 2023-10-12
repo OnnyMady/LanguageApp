@@ -79,7 +79,7 @@ public class WordController {
                 }
                 fileService.uploadFile(fileSound[0], fileName);
                 fileService.loadFileAsResource(fileName);
-                response = wordService.updateFileSoundName(response.getId(), extensionFileSound);
+                response = wordService.updateFileSoundName(Math.toIntExact(response.getId()), extensionFileSound);
             }
 
             if (filePicture != null) {
@@ -91,7 +91,7 @@ public class WordController {
                 }
                 fileService.uploadFile(filePicture[0], fileName);
                 fileService.loadFileAsResource(fileName);
-                response = wordService.updateFilePictureName(response.getId(), extensionFilePicture);
+                response = wordService.updateFilePictureName(Math.toIntExact(response.getId()), extensionFilePicture);
 
             }
 
@@ -118,14 +118,14 @@ public class WordController {
 
             if (fileSound != null) {
                 String extensionFileSound = fileService.getExtension(fileSound[0].getOriginalFilename());
-                response = wordService.updateFileSoundName(response.getId(), extensionFileSound);
+                response = wordService.updateFileSoundName(Math.toIntExact(response.getId()), extensionFileSound);
                 String fileName = response.getId() + extensionFileSound;
                 fileService.uploadFile(fileSound[0], fileName);
                 fileService.loadFileAsResource(fileName);
             }
             if (filePicture != null) {
                 String extensionFilePicture = fileService.getExtension(filePicture[0].getOriginalFilename());
-                response = wordService.updateFilePictureName(response.getId(), extensionFilePicture);
+                response = wordService.updateFilePictureName(Math.toIntExact(response.getId()), extensionFilePicture);
                 String pictureName = response.getId() + extensionFilePicture;
                 fileService.uploadFile(filePicture[0], pictureName);
                 fileService.loadFileAsResource(pictureName);

@@ -2,46 +2,39 @@ package proj.LanguageApp.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="word")
 public class Word {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "TRANSLATION")
-    private String translation;
-
-    @Column(name = "SENTENCE")
-    private String sentence;
-
     @Column(name = "CATEGORY")
     private String category;
-
-    @Column(name = "SOUNDNAME")
-    private String soundName;
 
     @Column(name = "LESSON")
     private String lesson;
 
+    @Column(name = "SOUNDNAME")
+    private String soundName;
+
     @Column(name = "PICTURENAME")
     private String pictureName;
 
-    @Column(name = "fileBytes")
-    private byte[] fileBytes;
+    @OneToMany(mappedBy = "word")
+    private List<Translation> translationList;
 
-    @Column(name="PICTURE")
-    private byte[] pictureBytes;
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -61,14 +54,6 @@ public class Word {
         this.name = name;
     }
 
-    public String getTranslation() {
-        return translation;
-    }
-
-    public void setTranslation(String translation) {
-        this.translation = translation;
-    }
-
     public String getCategory() {
         return category;
     }
@@ -85,14 +70,6 @@ public class Word {
         this.lesson = lesson;
     }
 
-    public String getSentence() {
-        return sentence;
-    }
-
-    public void setSentence(String sentence) {
-        this.sentence = sentence;
-    }
-
     public String getSoundName() {
         return soundName;
     }
@@ -101,19 +78,11 @@ public class Word {
         this.soundName = soundName;
     }
 
-    public byte[] getFileBytes() {
-        return fileBytes;
+    public List<Translation> getTranslationList() {
+        return translationList;
     }
 
-    public void setFileBytes(byte[] fileBytes) {
-        this.fileBytes = fileBytes;
-    }
-
-    public byte[] getPictureBytes(){
-        return pictureBytes;
-    }
-
-    public void setPictureBytes(byte[] pictureBytes){
-        this.pictureBytes = pictureBytes;
+    public void setTranslationList(List<Translation> translationList) {
+        this.translationList = translationList;
     }
 }
