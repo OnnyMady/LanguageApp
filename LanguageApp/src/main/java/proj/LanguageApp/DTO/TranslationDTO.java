@@ -21,11 +21,14 @@ public class TranslationDTO {
         this.name = translation.getName();
         this.wordId = translation.getWord().getId();
 
-        List<SentenceDTO> myList = new ArrayList<>();
-        for(Sentence mySentance: translation.getSentenceList()){
-            myList.add(new SentenceDTO(mySentance));
+        if(translation.getSentenceList() != null){
+            List<SentenceDTO> myList = new ArrayList<>();
+            for(Sentence mySentance: translation.getSentenceList()){
+                myList.add(new SentenceDTO(mySentance));
+            }
+            this.sentenceDTOList = myList;
         }
-        this.sentenceDTOList = myList;
+
     }
 
 

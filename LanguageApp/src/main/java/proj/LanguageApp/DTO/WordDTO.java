@@ -31,10 +31,13 @@ public class WordDTO {
         this.lesson = word.getLesson();
 
         List<TranslationDTO> myList = new ArrayList<>();
-        for(Translation myTranslation: word.getTranslationList()){
-            myList.add(new TranslationDTO(myTranslation));
+        if(word.getTranslationList() != null){
+            for(Translation myTranslation: word.getTranslationList()){
+                myList.add(new TranslationDTO(myTranslation));
+            }
+            this.translationDTOList = myList;
         }
-        this.translationDTOList = myList;
+
     }
 
     public WordDTO (String name,String category){
