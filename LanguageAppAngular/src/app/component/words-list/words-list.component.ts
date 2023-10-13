@@ -3,8 +3,6 @@ import {Word} from "../../models/word.model";
 import {WordsService} from "../../service/words.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ModalService} from "../../service/modal.service";
-import {AudioPlayerService} from "../../service/audio-player.service";
-
 
 @Component({
   selector: 'app-words-list',
@@ -13,16 +11,23 @@ import {AudioPlayerService} from "../../service/audio-player.service";
 })
 export class WordsListComponent implements OnInit {
 
+  constructor(private wordsService: WordsService, private modalService: ModalService) {
+  }
+
   searchTextName: string;
   searchTextCategory: string;
   showImage: boolean = false;
-
-  constructor(private wordsService: WordsService, private modalService: ModalService,
-              private audioPlayerService: AudioPlayerService) {
-  }
-
   listOfWords: Word[];
   refresh = false;
+
+  ngOnInit() {
+    this.wordsService.getWords().subscribe((response: Word[]) => {
+        this.listOfWords = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      });
+  }
 
   onEdit(word: Word) {
     this.modalService.onEditDialog(word);
@@ -40,6 +45,10 @@ export class WordsListComponent implements OnInit {
     }
   }
 
+  onView(word: Word){
+    this.modalService.onViewDialog(word);
+  }
+
   playSound(name: string) {
     let audio = new Audio();
     audio.src = '../../assets/sounds/' + name;
@@ -47,12 +56,4 @@ export class WordsListComponent implements OnInit {
     audio.play();
   }
 
-  ngOnInit() {
-    this.wordsService.getWords().subscribe((response: Word[]) => {
-        this.listOfWords = response;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      });
-  }
 }

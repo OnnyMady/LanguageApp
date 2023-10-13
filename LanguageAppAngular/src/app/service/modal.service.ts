@@ -3,6 +3,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {WordDeleteComponent} from "../component/modal/word-delete/word-delete.component";
 import {Word} from "../models/word.model";
 import {WordEditComponent} from "../component/modal/word-edit/word-edit.component";
+import {WordViewComponent} from "../component/modal/word-view/word-view.component";
 
 
 @Injectable({
@@ -44,6 +45,22 @@ export class ModalService{
     dialogConfig.data = { word: word };
 
     const dialogRef = this.dialog.open(WordEditComponent, dialogConfig);
+  }
+
+  //  ---View Modal---
+
+  onViewDialog(word: Word){
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = "700px";
+    dialogConfig.height = "550px";
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.panelClass = 'word-view-modal';
+    dialogConfig.data = { word: word };
+
+    const dialogRef = this.dialog.open(WordViewComponent, dialogConfig);
+
   }
 
 }
