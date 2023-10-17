@@ -2,6 +2,8 @@ package proj.LanguageApp.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import proj.LanguageApp.DTO.SentenceDTO;
+import proj.LanguageApp.DTO.TranslationDTO;
 import proj.LanguageApp.DTO.WordDTO;
 import proj.LanguageApp.Entity.Word;
 import proj.LanguageApp.Repository.WordRepository;
@@ -35,19 +37,23 @@ public class WordService {
     }
 
     public WordDTO updateFileSoundName (Integer id, String extension) throws Exception{
-        WordDTO editWord = new WordDTO(wordRepository.findById(id).get());
+        WordDTO editWord = new WordDTO(wordRepository.findById(id.longValue()).get());
         editWord.setSoundName( id + extension );
         return new WordDTO(wordRepository.save(editWord.toEntity()));
     }
 
     public WordDTO updateFilePictureName(Integer id, String extension) throws Exception{
-        WordDTO editWord = new WordDTO(wordRepository.findById(id).get());
+        WordDTO editWord = new WordDTO(wordRepository.findById(id.longValue()).get());
         editWord.setPictureName( id + extension );
         return new WordDTO(wordRepository.save(editWord.toEntity()));
     }
 
     public WordDTO findWord(String id) throws Exception{
-         return new WordDTO(wordRepository.findById(Integer.parseInt(id)).get());
+         return new WordDTO(wordRepository.findById(Long.parseLong(id)).get());
+    }
+
+    public WordDTO findWord(Long id) throws Exception{
+        return new WordDTO(wordRepository.findById(id).get());
     }
 
     public WordDTO editWord(WordDTO wordDTO, String category, String name) throws Exception{
@@ -57,4 +63,5 @@ public class WordService {
 
         return wordDTO;
     }
+
 }

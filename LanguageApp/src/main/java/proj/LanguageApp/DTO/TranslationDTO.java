@@ -2,7 +2,7 @@ package proj.LanguageApp.DTO;
 
 import proj.LanguageApp.Entity.Sentence;
 import proj.LanguageApp.Entity.Translation;
-
+import proj.LanguageApp.Entity.Word;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class TranslationDTO {
 
     private Long wordId;
 
-    TranslationDTO(Translation translation){
+    public TranslationDTO(Translation translation){
         this.id = translation.getId();
         this.name = translation.getName();
         this.wordId = translation.getWord().getId();
@@ -31,6 +31,21 @@ public class TranslationDTO {
 
     }
 
+    public Translation toEntity () {
+        Translation entity = new Translation();
+        entity.setId(this.getId());
+        entity.setName(this.getName());
+
+        Word word = new Word();
+        word.setId(this.getWordId());
+        entity.setWord(word);
+
+        return entity;
+    }
+
+    public TranslationDTO(){
+
+    }
 
     public Long getId() {
         return id;

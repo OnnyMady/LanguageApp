@@ -16,8 +16,11 @@ import java.util.List;
 
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import proj.LanguageApp.DTO.TranslationDTO;
 import proj.LanguageApp.DTO.WordDTO;
+import proj.LanguageApp.Entity.Translation;
 import proj.LanguageApp.Service.FileService;
+import proj.LanguageApp.Service.TranslationService;
 import proj.LanguageApp.Service.WordService;
 
 @RestController
@@ -32,6 +35,9 @@ public class WordController {
 
     @Autowired
     private FileService fileService;
+
+    @Autowired
+    private TranslationService translationService;
 
     @GetMapping("all")
     public ResponseEntity<List<WordDTO>> getAllWords() {
@@ -102,6 +108,25 @@ public class WordController {
         }
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "addTranslation")
+    public ResponseEntity<WordDTO> addTranslation(@RequestParam("wordId") Long id,
+                                                  @RequestParam("translation") String translation,
+                                                  @RequestParam("sentence") String sentence){
+
+        WordDTO response = null;
+        try{
+
+            WordDTO word = wordService.findWord(id);
+            translationService.addTranslation(id, translation, sentence);
+
+
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping(value = "add")

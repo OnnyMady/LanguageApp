@@ -1,6 +1,7 @@
 package proj.LanguageApp.DTO;
 
 import proj.LanguageApp.Entity.Sentence;
+import proj.LanguageApp.Entity.Translation;
 
 public class SentenceDTO {
 
@@ -10,10 +11,24 @@ public class SentenceDTO {
 
     private Long translationId;
 
-    SentenceDTO(Sentence sentence){
+    public SentenceDTO(Sentence sentence){
         this.id = sentence.getId();
         this.sentence = sentence.getSentence();
         this.translationId = sentence.getTranslation().getId();
+    }
+
+    public SentenceDTO(){
+
+    }
+
+    public Sentence toEntity(){
+        Sentence entity = new Sentence();
+        Translation translation = new Translation();
+        translation.setId(this.getTranslationId());
+        entity.setTranslation(translation);
+        entity.setSentence(this.getSentence());
+        entity.setId(this.getId());
+        return entity;
     }
 
     public Long getId() {
