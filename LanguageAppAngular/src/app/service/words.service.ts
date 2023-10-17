@@ -49,13 +49,21 @@ export class WordsService{
 
   addWord(word: FormData){
 
-    let headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data '
-    });
-    headers.delete('Content-Type');
+    // let headers = new HttpHeaders({
+    //   'Content-Type': 'multipart/form-data '
+    // });
+    // headers.delete('Content-Type');
 
     this.http
       .post<any>(`${this.apiServerUrl}/words/add`, word )
+      .subscribe((data) => {});
+  }
+
+  addTranslation(word: FormData, wordId: number){
+    const url = `${this.apiServerUrl}/words/addTranslation?wordId=${wordId}`;
+
+    this.http
+      .post<any>(url,  word )
       .subscribe((data) => {});
   }
 
@@ -68,10 +76,7 @@ export class WordsService{
 
   Object.keys(formGroup.controls).forEach((key) => {
     let control = formGroup.get(key);
-    // if (key != "id") {
         formData.append(key, control?.value);
-
-    // }
   });
      return formData;
    }

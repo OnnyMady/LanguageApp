@@ -1,0 +1,70 @@
+<div class="generic-content">
+  <div class="title-container">
+    <div>
+      <div class="card-title">
+        <div>{{data.word.name}}</div>
+        <div><i *ngIf="data.word.soundName != null"
+                class="bi bi-volume-up-fill icons-sound"
+                (click)="playSound(data.word.soundName)"></i></div>
+      </div>
+      <div class="category"> Category: {{data.word.category}}</div>
+
+    </div>
+
+    <img class="image" src="assets/picture/{{data.word.pictureName}}">
+
+  </div>
+
+  <hr>
+
+  <div class="translation-header">
+    <div class="translation-title" *ngIf="!showFieldFlag"><i class="bi bi-translate" ></i> Translations:</div>
+    <span><button type="button" class="button" *ngIf="!showFieldFlag"
+                  (click)="showField()">Add Translation <i
+      class="bi bi-plus-lg"></i></button> </span>
+  </div>
+</div>
+
+
+<form [formGroup]="myForm" enctype="multipart/form-data" (ngSubmit)="onSubmit(data.word.id)">
+  <div class="flex-container">
+
+    <div id="new-translation" *ngIf="showFieldFlag"> New Translation:</div>
+
+    <div class="form-group" *ngIf="showFieldFlag">
+      <label class="label">Insert Translation</label>
+      <input type="text" class="form-control" placeholder="Translation" id="translationId"
+             name="translation" formControlName="translation">
+    </div>
+
+    <div class="form-group" *ngIf="showFieldFlag">
+      <label class="label">Insert Sentence</label>
+      <input type="text" class="form-control" placeholder="Sentence" id="sentenceId"
+             name="sentence" formControlName="sentence">
+    </div>
+
+    <div class="buttons-submit">
+      <span style="margin-right: 10px"><button type="button"  *ngIf="showFieldFlag" class="button"
+                                               (click)="notShowField()">Cancel </button></span>
+
+      <span style="margin-right: 10px" *ngIf="showFieldFlag"><button type="submit" class="button"
+                                                                     >Submit </button> </span>
+    </div>
+
+  </div>
+
+    <div *ngIf="!showFieldFlag">
+      <div *ngFor="let translation of data.word.translationDTOList; let i = index" class="text" >
+        <div class="translation-text">
+          <div class="numberCircle">{{i + 1}}</div>
+          <div class="trans-text">{{translation.name}}</div>
+        </div>
+        <div class="sentence-text"><i class="bi bi-circle-fill bi-sm" style="font-size: 6px"></i>
+          <div>{{translation.sentenceDTOList[0].sentence}}</div>
+        </div>
+      </div>
+    </div>
+
+</form>
+
+
