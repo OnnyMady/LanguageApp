@@ -2,6 +2,7 @@ package proj.LanguageApp.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import proj.LanguageApp.DTO.SentenceDTO;
 import proj.LanguageApp.DTO.TranslationDTO;
 import proj.LanguageApp.Entity.Sentence;
@@ -22,6 +23,7 @@ public class TranslationService {
     @Autowired
     private WordRepository wordRepository;
 
+    @Transactional
     public void addTranslation(Long wordId, String translationName, String sentenceName) {
         Sentence sentence = new Sentence();
         Translation translation = new Translation();
@@ -35,6 +37,43 @@ public class TranslationService {
         sentenceRepository.save(sentence);
 
     }
+
+    @Transactional
+    public void delete(Long translationId){
+        TranslationDTO translationDTO = new TranslationDTO(translationRepository.getById(translationId));
+        for(SentenceDTO sentence: translationDTO.getSentenceDTOList()){
+            sentenceRepository.deleteSentenceById(sentence.getId());
+        }
+
+        translationRepository.deleteTranslationById(translationId);
+    }
+
+    @Transactional
+    public void deleteSentence(Long sentenceId){
+
+        sentenceRepository.deleteSentenceById(sentenceId);
+    }
+
+    @Transactional
+    public SentenceDTO addSentence(SentenceDTO sentenceDTO){
+        return new SentenceDTO(sentenceRepository.save(sentenceDTO.toEntity()));
+    }
+
+    @Transactional
+    public SentenceDTO editSentence(SentenceDTO sentenceDTO){
+        SentenceDTO editSentence = new SentenceDTO(sentenceRepository.findById(sentenceDTO.getId()).get());
+        editSentence.setSentence(sentenceDTO.getSentence());
+        return new SentenceDTO(sentenceRepository.save(editSentence.toEntity()));
+    }
+
+    @Transactional
+    public TranslationDTO editTranslation(TranslationDTO translationDTO){
+        TranslationDTO editTranslation = new TranslationDTO(translationRepository.findById(translationDTO.getId()).get());
+        editTranslation.setName(translationDTO.getName());
+        return new TranslationDTO(translationRepository.save(editTranslation.toEntity()));
+    }
+
+
 
 
 }
