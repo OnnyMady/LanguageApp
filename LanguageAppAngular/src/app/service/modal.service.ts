@@ -53,8 +53,8 @@ export class ModalService{
 
     const dialogConfig = new MatDialogConfig();
 
-    dialogConfig.width = "800px";
-    dialogConfig.height = "550px";
+    dialogConfig.width = "900px";
+    dialogConfig.height = "850px";
     dialogConfig.hasBackdrop = true;
     dialogConfig.panelClass = 'word-view-modal';
     dialogConfig.data = { word: word };

@@ -33,37 +33,14 @@ export class WordsService{
   }
 
   editWord(word: FormData){
-
-    let headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    });
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/octet-stream'})
-    }
-    // headers.delete('Content-Type');
-
     this.http
       .post<any>(`${this.apiServerUrl}/words/edit`,  word)
       .subscribe((data) => {});
   }
 
   addWord(word: FormData){
-
-    // let headers = new HttpHeaders({
-    //   'Content-Type': 'multipart/form-data '
-    // });
-    // headers.delete('Content-Type');
-
     this.http
       .post<any>(`${this.apiServerUrl}/words/add`, word )
-      .subscribe((data) => {});
-  }
-
-  addTranslation(word: FormData, wordId: number){
-    const url = `${this.apiServerUrl}/words/addTranslation?wordId=${wordId}`;
-
-    this.http
-      .post<any>(url,  word )
       .subscribe((data) => {});
   }
 
@@ -80,7 +57,4 @@ export class WordsService{
   });
      return formData;
    }
-
-
-
 }
