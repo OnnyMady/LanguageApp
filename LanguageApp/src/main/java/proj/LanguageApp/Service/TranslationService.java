@@ -11,6 +11,9 @@ import proj.LanguageApp.Repository.SentenceRepository;
 import proj.LanguageApp.Repository.TranslationRepository;
 import proj.LanguageApp.Repository.WordRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TranslationService {
 
@@ -24,17 +27,22 @@ public class TranslationService {
     private WordRepository wordRepository;
 
     @Transactional
-    public void addTranslation(Long wordId, String translationName, String sentenceName) {
+    public TranslationDTO addTranslation(Long wordId, String translationName, String sentenceName) {
+
         Sentence sentence = new Sentence();
         Translation translation = new Translation();
 
         translation.setWord(wordRepository.findById(wordId).get());
         translation.setName(translationName);
-        translationRepository.save(translation);
+        TranslationDTO translationDTO = new TranslationDTO(translationRepository.save(translation));
+        List<SentenceDTO> sentenceList = new ArrayList<>();
 
         sentence.setSentence(sentenceName);
         sentence.setTranslation(translation);
-        sentenceRepository.save(sentence);
+        sentenceList.add(new SentenceDTO(sentenceRepository.save(sentence)));
+        translationDTO.setSentenceDTOList(sentenceList);
+
+        return translationDTO;
 
     }
 
@@ -72,8 +80,5 @@ public class TranslationService {
         editTranslation.setName(translationDTO.getName());
         return new TranslationDTO(translationRepository.save(editTranslation.toEntity()));
     }
-
-
-
 
 }

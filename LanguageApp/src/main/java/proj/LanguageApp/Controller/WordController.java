@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
+import proj.LanguageApp.DTO.SentenceDTO;
+import proj.LanguageApp.DTO.TranslationDTO;
 import proj.LanguageApp.DTO.WordDTO;
 import proj.LanguageApp.Service.FileService;
 import proj.LanguageApp.Service.TranslationService;
@@ -28,6 +30,9 @@ public class WordController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private TranslationService translationService;
+
     @GetMapping("all")
     public ResponseEntity<List<WordDTO>> getAllWords() {
         List<WordDTO> wordList = new ArrayList<>();
@@ -43,6 +48,24 @@ public class WordController {
     @Transactional
     public ResponseEntity<?> deleteWord(@PathVariable("id") Long id) {
         try {
+
+            WordDTO word = wordService.findWord(id);
+            if(word.getTranslationDTOList() != null){
+                for(TranslationDTO translationDTO: word.getTranslationDTOList()){
+                    if(translationDTO.getSentenceDTOList() != null){
+                        for(SentenceDTO sentenceDTO: translationDTO.getSentenceDTOList()){
+                            translationService.deleteSentence(sentenceDTO.getId());
+                        }
+                    }
+                    translationService.delete(translationDTO.getId());
+                }
+            }
+            if(word.getSoundName() != null){
+                fileService.deleteFile(word.getSoundName());
+            }
+            if(word.getPictureName() != null){
+                fileService.deleteFile(word.getPictureName());
+            }
             wordService.deleteWord(id);
 
         } catch (Exception e) {

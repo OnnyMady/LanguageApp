@@ -28,15 +28,14 @@ public class TranslationController {
     private WordService wordService;
 
     @PostMapping(value = "addTranslation")
-    public ResponseEntity<WordDTO> addTranslation(@RequestParam("wordId") Long id,
+    public ResponseEntity<TranslationDTO> addTranslation(@RequestParam("wordId") Long id,
                                                   @RequestParam("translation") String translation,
                                                   @RequestParam("sentence") String sentence){
 
-        WordDTO response = null;
+        TranslationDTO response = null;
         try{
 
-            WordDTO word = wordService.findWord(id);
-            translationService.addTranslation(id, translation, sentence);
+            response = translationService.addTranslation(id, translation, sentence);
 
 
         } catch (Exception e){
