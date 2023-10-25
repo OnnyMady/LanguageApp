@@ -16,6 +16,7 @@ import { WordDeleteComponent } from './component/modal/word-delete/word-delete.c
 import {MatDialogModule} from "@angular/material/dialog";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WordViewComponent } from './component/modal/word-view/word-view.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -31,16 +32,17 @@ import { WordViewComponent } from './component/modal/word-view/word-view.compone
     WordViewComponent,
 
   ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    AppRountigModule,
-    HttpClientModule,
-    MatDialogModule,
-    BrowserAnimationsModule
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AppRountigModule,
+        HttpClientModule,
+        MatDialogModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [WordDeleteComponent]

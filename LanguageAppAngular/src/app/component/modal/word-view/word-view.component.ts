@@ -6,6 +6,7 @@ import {FormControl, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
 import {Sentence} from "../../../models/sentance.model";
 import {TranslationService} from "../../../service/translation.service";
+import {ModalService} from "../../../service/modal.service";
 
 @Component({
   selector: 'app-word-view',
@@ -31,7 +32,8 @@ export class WordViewComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     public wordsService: WordsService,
-    public translationService: TranslationService
+    public translationService: TranslationService,
+    public modalService: ModalService
   ) {
   }
 
@@ -42,11 +44,15 @@ export class WordViewComponent {
     });
   }
 
-  onSubmit(wordId: number){
+  onSubmit(wordId: number) {
     console.log(this.myForm.value);
     this.formData = this.wordsService.transformFormGroupToFormData(this.myForm);
-    this.translationService.addTranslation(this.formData, wordId);
-    this.router.navigate(['/wordsList']).then( () => window.location.reload());
+    this.translationService.addTranslation(this.formData, wordId).subscribe((response: Translation) => {
+      this.data.word.translationDTOList.push(response);
+      this.data.word.translationDTOList[response.id].sentenceDTOList = response.sentenceList;
+    });
+    this.showFieldFlag = false;
+    this.showUpdateFlag = false;
   }
 
   playSound(name: string) {
@@ -56,62 +62,96 @@ export class WordViewComponent {
     audio.play();
   }
 
-  showField(){
+  showField() {
     this.showFieldFlag = true;
   }
 
-  notShowField(){
+  notShowField() {
     this.showFieldFlag = false;
   }
 
-  showUpdateField(nameTranslation: string){
+  showUpdateField(nameTranslation: string) {
     this.showUpdateFlag = true;
     this.editSentenceFlag = false;
     this.translationObj.name = nameTranslation;
   }
 
-  notShowUpdateField(){
+  notShowUpdateField() {
     this.showUpdateFlag = false;
   }
 
-  onEditSentence( sentence: string){
+  onEditSentence(sentence: string) {
     this.showUpdateFlag = false;
     this.editSentenceFlag = true;
     this.sentenceObj.sentence = sentence;
     this.translationObj.sentenceList.push(this.sentenceObj);
   }
 
-  notOnEditSentence(){
+  notOnEditSentence() {
     this.editSentenceFlag = false;
   }
 
-  onUpdateTranslation(translationId: number){
+  onUpdateTranslation(translationId: number) {
     let translation = {id: translationId, name: this.updateTranslationInputName.nativeElement.value};
     this.translationService.updateTranslation(translation);
-    this.router.navigate(['/wordsList']).then( () => window.location.reload());
 
+    for (let i = 0; i < this.data.word.translationDTOList.length; i++) {
+      if (this.data.word.translationDTOList[i].id === translationId) {
+        this.data.word.translationDTOList[i].name = this.updateTranslationInputName.nativeElement.value;
+        this.showFieldFlag = false;
+        this.showUpdateFlag = false;
+      }
+    }
   }
 
-  onDeleteTranslation(idTranslation: number){
-        this.translationService.deleteTranslation(idTranslation);
-        window.location.reload();
-
+  onDeleteTranslation(idTranslation: number) {
+    this.translationService.deleteTranslation(idTranslation);
+    for (let i = 0; i < this.data.word.translationDTOList.length; i++) {
+      if (this.data.word.translationDTOList[i].id === idTranslation) {
+        this.data.word.translationDTOList.splice(i, 1);
+      }
+    }
+    this.showFieldFlag = false;
+    this.showUpdateFlag = false;
   }
 
-  onDeleteSentence( idSentence: number){
-        this.translationService.deleteSentence(idSentence);
+  onDeleteSentence(idSentence: number, translation: any) {
+    this.translationService.deleteSentence(idSentence);
+    translation.sentenceDTOList.forEach((element, index) => {
+      if (element.id === idSentence) {
+        translation.sentenceDTOList.splice(index, 1);
+      }
+    })
+    this.showFieldFlag = false;
+    this.showUpdateFlag = false;
   }
 
-  onAddSentence(translationId: number){
+  onAddSentence(translationId: number) {
     let sentence = {translationId: translationId, sentence: this.updateTranslationInputName.nativeElement.value};
-    this.translationService.addSentence(sentence);
+    this.translationService.addSentence(sentence).subscribe((response: Sentence) => {
+      for (let i = 0; i < this.data.word.translationDTOList.length; i++) {
+        if (this.data.word.translationDTOList[i].id === translationId) {
+          this.data.word.translationDTOList[i].sentenceDTOList.push(response);
+        }
+      }
+    })
+    this.showFieldFlag = false;
+    this.showUpdateFlag = false;
   }
 
-  onUpdateSentence(sentenceId: number){
+  onUpdateSentence(sentenceId: number, translation: any) {
+
+    let item = this.data.word.translationDTOList;
     let sentence = {id: sentenceId, sentence: this.updateSentenceInputName.nativeElement.value};
     this.translationService.updateSentence(sentence);
+    for (let i = 0; i < translation.sentenceDTOList.length; i++) {
+      if (translation.sentenceDTOList[i].id === sentenceId) {
+        translation.sentenceDTOList[i].sentence = this.updateSentenceInputName.nativeElement.value;
+      }
+    }
+    this.showFieldFlag = false;
+    this.showUpdateFlag = false;
   }
-
 
 
 }

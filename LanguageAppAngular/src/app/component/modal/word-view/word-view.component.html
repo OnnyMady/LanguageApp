@@ -17,7 +17,7 @@
   <!-- Translations header &&  AddTranslation Button-->
   <div class="translation-header" *ngIf="!showFieldFlag">
     <div class="translation-title"><i class="bi bi-translate"></i>Translations:</div>
-    <button type="button" class="button " (click)="showField()">Add Translation <i class="bi bi-plus-lg"></i></button>
+    <button *ngIf="data.editMode" type="button" class="button " (click)="showField()">Add Translation <i class="bi bi-plus-lg"></i></button>
   </div>
 </div>
 
@@ -48,20 +48,25 @@
 <div *ngIf="!showFieldFlag">
   <div *ngFor="let translation of data.word.translationDTOList; let i = index" class="text">
     <div class="translation-text">
-      <div class="numberCircle" type="button"><span id="circle-number">{{i + 1}}</span><span
+      <div class="numberCircle" type="button" *ngIf="data.editMode"><span id="circle-number">{{i + 1}}</span><span
         id="circle-edit"
         (click)="showUpdateField(translation.name)">Edit</span></div>
+      <div *ngIf="!data.editMode" class="numberCircle" ><span id="circle-number2">{{i + 1}}</span></div>
       <div class="trans-text">{{translation.name}}</div>
     </div>
 
     <!-- Senteces list-->
     <div *ngFor="let sentence of translation.sentenceDTOList; let i =index">
         <div *ngIf="translation.sentenceDTOList.length">
-          <div class="sentence-text" type="button">
+          <div class="sentence-text" type="button" *ngIf="data.editMode">
           <span id="sentence-circle"><i class="bi bi-circle-fill bi-sm" style="font-size: 6px"></i></span>
-          <span id="sentence-edit" (click)="onEditSentence(sentence.sentence)">Edit</span>
+          <span id="sentence-edit" (click)=" onEditSentence(sentence.sentence)">Edit</span>
           <div id="sentence-text">{{sentence.sentence}}</div>
         </div>
+          <div class="sentence-text" type="button" *ngIf="!data.editMode">
+            <span id="sentence-circle2"><i class="bi bi-circle-fill bi-sm" style="font-size: 6px"></i></span>
+            <div id="sentence-text2">{{sentence.sentence}}</div>
+          </div>
 
         <div *ngIf="editSentenceFlag && this.sentenceObj.sentence === sentence.sentence" class="update-sentence">
           <div class="update-sentece-form">
@@ -72,9 +77,9 @@
           <!-- Update Sentence Buttons-->
           <div class="button-update-sentence">
             <span style="padding-bottom: 30px"><button type="submit" class="button-sm"
-                                                       (click)="onUpdateSentence(sentence.id)">Update</button> </span>
+                                                       (click)="onUpdateSentence(sentence.id, translation)">Update</button> </span>
             <span><button type="button" class="button-sm"
-                          (click)="onDeleteSentence(sentence.id)">Delete <i class="bi bi-trash"></i></button> </span>
+                          (click)="onDeleteSentence(sentence.id, translation)">Delete <i class="bi bi-trash"></i></button> </span>
             <span><button type="button" class="button-sm"
                           (click)="notOnEditSentence()">Close <i class="bi bi-x-circle-fill"></i></button> </span>
           </div>

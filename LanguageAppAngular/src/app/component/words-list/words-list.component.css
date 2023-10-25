@@ -115,3 +115,25 @@ li {
   border-radius: 35px;
 }
 
+mat-paginator{
+  color: #e9891c;
+ font-weight: bold;
+  font-size: 14px;
+}
+
+.container-seach-checkbox{
+  display: flex;
+  gap: 1120px;
+}
+
+.container-checkbox{
+  padding-top: 40px;
+}
+
+.form-check-input:checked{
+  background-color: #e9891c;
+  border-color: #e9891c;
+}
+
+
+

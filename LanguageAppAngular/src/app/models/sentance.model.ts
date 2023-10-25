@@ -3,4 +3,9 @@ export class Sentence {
   translationId?: number;
   sentence?: string;
 
+  constructor(translationId: number, sentence: string) {
+    this.translationId = translationId;
+    this.sentence = sentence;
+  }
+
 }

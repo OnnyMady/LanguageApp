@@ -5,6 +5,7 @@ export class Translation {
   wordId?: number;
   name?: string;
   sentenceList?: Sentence[];
+  // sentenceDTOList?: Sentence[];
 
 
 }

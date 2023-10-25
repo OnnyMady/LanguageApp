@@ -21,10 +21,7 @@ export class TranslationService{
 
   addTranslation(word: FormData, wordId: number){
     const url = `${this.apiServerUrl}/translation/addTranslation?wordId=${wordId}`;
-
-    this.http
-      .post<any>(url,  word )
-      .subscribe((data) => {});
+    return this.http.post<any>(url,  word );
   }
 
   updateTranslation(translation: Translation){
@@ -49,9 +46,7 @@ export class TranslationService{
   }
 
   addSentence(sentence: Sentence){
-    this.http
-      .post<any>(`${this.apiServerUrl}/translation/sentence/add`,  sentence)
-      .subscribe((data) => {});
+    return this.http.post<any>(`${this.apiServerUrl}/translation/sentence/add`,  sentence);
   }
 
   updateSentence(sentence: Sentence){

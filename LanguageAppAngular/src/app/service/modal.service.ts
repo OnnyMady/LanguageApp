@@ -49,7 +49,7 @@ export class ModalService{
 
   //  ---View Modal---
 
-  onViewDialog(word: Word){
+  onViewDialog(word: Word, editMode: boolean){
 
     const dialogConfig = new MatDialogConfig();
 
@@ -57,7 +57,7 @@ export class ModalService{
     dialogConfig.height = "850px";
     dialogConfig.hasBackdrop = true;
     dialogConfig.panelClass = 'word-view-modal';
-    dialogConfig.data = { word: word };
+    dialogConfig.data = { word: word, editMode: editMode };
 
     const dialogRef = this.dialog.open(WordViewComponent, dialogConfig);
 

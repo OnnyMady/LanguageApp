@@ -1,22 +1,32 @@
 <br>
+<div class="container-seach-checkbox">
+  <div class="search">
+    <li>
+      <label for="name">Name: </label>
+      <div class="box">
+        <input type="text" [(ngModel)]="searchTextName" placeholder="Search" id="name">
+        <i class="bi bi-search"></i>
+      </div>
+    </li>
 
-<div class="">
-  <li>
-    <label for="name">Name: </label>
-    <div class="box">
-      <input type="text" [(ngModel)]="searchTextName" placeholder="Search" id="name">
-      <i class="bi bi-search"></i>
-    </div>
-  </li>
+    <li>
+      <label for="category">Category: </label>
+      <div class="box">
+        <input type="text" [(ngModel)]="searchTextCategory" placeholder="Search" id="category">
+        <i class="bi bi-search"></i>
+      </div>
+    </li>
+  </div>
 
-  <li>
-    <label for="category">Category: </label>
-    <div class="box">
-      <input type="text" [(ngModel)]="searchTextCategory" placeholder="Search" id="category">
-      <i class="bi bi-search"></i>
+  <div class="container-checkbox">
+    <div class="form-check form-switch">
+      <input class="form-check-input" id="checkEdit" type="checkbox" (click)="onEditMode()" #checkEdit>
+      <label class="form-check-label" >Edit Mode</label>
     </div>
-  </li>
+  </div>
+
 </div>
+
 <br>
 <br>
 
@@ -30,9 +40,9 @@
     <th scope="col" class="title">Buttons</th>
   </tr>
   </thead>
-  <tbody *ngFor="let word of listOfWords | searchWordPipe: searchTextName : searchTextCategory ; let i = index ">
+  <tbody *ngFor="let word of (searchTextName || searchTextCategory ? listOfWords : paginatedListOfWords) | searchWordPipe: searchTextName : searchTextCategory ; let i = index ">
   <tr>
-    <th scope="row" class="title">{{i + 1}}</th>
+    <th scope="row" class="title">{{ i + 1 + (pageIndex * pageSize) }}</th>
     <td class="item">
       <div class="container-name-image">
       <div class="text"  >{{word.name != 'null' ? word.name : ''}} </div>
@@ -45,17 +55,29 @@
                         (click)="playSound(word.soundName)"></i></td>
     <td class="item">
       <div class="button-div">
-        <span style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2"
-                                                  (click)="onEdit(word)">Edit <i class="bi bi-pencil-fill"></i></button></span>
-        <span style="margin-right: 10px"> <button type="button" class="btn btn-danger btn-sm"
+        <span *ngIf="editMode" style="margin-right: 10px"> <button type="button" class="btn btn-secondary btn-sm mr-2"
+                                                  (click)="onEdit(word)">Edit Word <i class="bi bi-pencil-fill"></i></button></span>
+        <span *ngIf="editMode" style="margin-right: 10px"> <button type="button" class="btn btn-danger btn-sm"
                                                   (click)="onDelete(word.id, word.name)">Delete <i
           class="bi bi-trash3"></i></button> </span>
-        <span style="margin-right: 10px"><button type="button" class="btn btn-info btn-sm" (click)="onView(word)">View <i class="bi bi-eye"></i></button> </span>
+        <span style="margin-right: 10px"><button type="button" class="btn btn-secondary btn-sm" (click)="onView(word, editMode)">{{editMode ? "Edit Meanings" : "View meanings"}} </button> </span>
       </div>
     </td>
   </tr>
   </tbody>
 </table>
+<div id="container-paginator">
+  <mat-paginator
+    [length]="listOfWords.length"
+    [pageIndex]="pageIndex"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="onPageChange($event)"
+    #paginator>
+  </mat-paginator>
+</div>
+
+
 
 
 
